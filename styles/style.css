@@ -1,0 +1,180 @@
+*{
+
+
+	box-sizing: border-box;
+}
+
+body{
+
+	background: #333;
+	background-image: url("./../images/wp6495743-neon-abstract-4k-wallpapers.jpg");
+	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+  	background-repeat: no-repeat;
+  	background-position: center;
+  	color:ghostwhite;
+
+
+}
+.kielshop{
+
+	font-family: 'Orbitron', sans-serif;
+	font-size: 2em;
+	
+}
+.card{
+
+	background: rgba(0, 0, 0, 0.6);
+	color: ghostwhite;
+}
+.card a{
+
+	color:  #00FFFF;
+}
+
+.card button{
+
+	border-color: #4CC9F0;
+}
+
+.card p {
+
+	color: ghostwhite;
+}
+.card h5{
+
+	color:  #00FFFF;
+}
+.card .card-body{
+
+	color: ghostwhite;
+}
+.header{
+
+	background-image: linear-gradient(to bottom right, black, #B5179E);
+	/*height: 20vh;*/
+	text-decoration: none;
+	padding-bottom: 10px;
+	height: 110px;
+	box-shadow: 0 0.7rem 1rem rgb(0 0 0 / 15%)
+	
+
+}
+.header a:hover {
+
+  color: #4CC9F0;
+  text-shadow:0px 0px 50px #4CC9F0;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+
+}
+
+.activeLink{
+
+  color: #4CC9F0;
+  text-shadow:0px 0px 30px #4CC9F0;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+
+}
+
+
+.nav2 a{
+
+	color: white;
+	background: transparent;
+}
+
+.main{
+
+	/*background: #333;*/
+	background: rgba(0, 0, 0, 0.6);
+	min-height: 100vh;
+	/*padding-top: 40px;*/
+}
+.footer{
+
+	/*background-image: linear-gradient(to right, black, #B5179E);*/
+	height: 30px;
+	background: rgba(0, 0, 0, 0.8);
+
+}
+.nav-wrapper{
+
+	padding-top: 10px;
+	text-decoration: none;
+
+
+}
+.nav1 a, nav2 a{
+
+	color: #F72585;
+	text-decoration: none;
+
+}
+
+.carousel-item img{
+
+	height: 400px;
+
+
+}
+.parentCart{
+
+	position: relative;
+	margin-right: 10px;
+}
+
+
+#cartIcon{
+
+	width: 35px;
+	/*filter: invert(1);*/
+}
+#cartItemCount{
+
+	color:  white;
+	position: absolute;
+	top: -5px;
+	right: -5px;
+	background-color: #ff4133;
+	width: 19px;
+	height: 19px;
+	border-radius: 60%;
+	text-align: center;
+	font-size: 0.8em;	
+}
+
+
+/*body{
+
+	background: #2B2D42;
+
+}
+.header{
+
+	background: #D90429;
+	height: 20vh;
+}
+
+.main{
+
+	background: #EDF2F4;
+	min-height: 70vh;
+	padding-top: 40px;
+}
+.footer{
+
+	background: #EF233C;
+
+}
+.nav1 a{
+
+	color: #EDF2F4;
+}*/
