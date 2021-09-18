@@ -1,6 +1,6 @@
 //Global Variables----------------------------
-//const rootUrl = "http://localhost:3000/"; //https://warm-everglades-42196.herokuapp.com/ 
-const rootUrl = "https://warm-everglades-42196.herokuapp.com/";
+const rootUrl = "http://localhost:3000/"; //https://warm-everglades-42196.herokuapp.com/ 
+/*const rootUrl = "https://warm-everglades-42196.herokuapp.com/";*/
 const token = localStorage.getItem('token');
 const isAdmin = localStorage.getItem('isAdmin');
 const params = new URLSearchParams(window.location.search);
@@ -106,7 +106,17 @@ function getCartItemsCount(){
 	.then(result=>result.json())
 	.then(result=>{
 
-			cartItemCount.innerHTML = result.count + "&nbsp;";
+		console.log(result);
+
+		let itemCount = 0;
+
+		result.forEach(e=>{
+
+			itemCount += e.quantity;
+
+		})
+
+			cartItemCount.innerHTML = itemCount;
 		
 	}).catch(e=>{
 
@@ -121,12 +131,9 @@ function getCartItemsCount(){
 
 			alert('You must login first');
 			window.location.replace('./login.html');
-
-
-
+			return;
 		}
 
-		
 	    fetch(`${rootUrl}api/users/addToCart/${productId}`,{
 	        method: "PUT",
 	        headers:{
@@ -134,21 +141,23 @@ function getCartItemsCount(){
 	            "Authorization": `Bearer ${token}`
 	        }
 	    })
-	   .then(result => {
-	       //console.log(result);
-	       return result.json();
-	   })
+	   .then(result =>result.json()) 
 	   .then(result =>{
-	       if(result !== null || result !== undefined){
 
-	       	alert('Added to cart');
-	       	window.location.reload();//reload lang di pa marunong AJAX
+	   	if(result){
 
-	       }
+	   		alert('Added to cart');
+	   		window.location.reload();//reload lang di pa marunong AJAX
+
+	   	}
+
 	    })
 	   .catch(e => console.log(e));
 
 	}
+
+
+
 
 	function logincheck(){
 

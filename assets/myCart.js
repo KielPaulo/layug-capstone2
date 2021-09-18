@@ -2,9 +2,6 @@ logincheck();
 getCartItemsCount(); 
 
 
-	cartwrapper = document.querySelector('.cartwrapper');
-
-
 	fetch(`${rootUrl}api/users/getCartItems`,{
 
 		method: "GET",
@@ -17,12 +14,71 @@ getCartItemsCount();
 	.then(result =>{
 
 
-		let content2 = document.querySelector('#content2');
+	let cartArr = result.map(e=>{
+
+		let totalAmount = e.quantity*e._id.price;
+
+		console.log(e._id._id);
+
+		return`<div class="card"><div class="card-body"><h5 class ="card-title">${e._id.name}</h5><br/>
+			<p>Quantity : ${e.quantity}</p>
+			<p class="card-text">${e._id.description}</p>
+			Price: ₱ ${e._id.price.toLocaleString('en-US')}<br/>
+			Total: ₱ ${totalAmount.toLocaleString('en-US')}<br/>
+			<button type="button" class="btn btn-danger btn-sm"onclick="removeFromCart('${e._id._id}')">Remove from cart</button>
+			</div>
+			</div>`
+			
+
+	}).join(" ")
+
+
+	let total=0;
+	result.forEach(i=>{
+
+
+		total += i.quantity*i._id.price;
+
+
+	})
+
+
+	let content2 = document.querySelector('#content2');
+	let checkoutBtn = document.querySelector('#checkoutBtn');
+
+	//console.log(cartArr.totalAmount);
+
+	document.querySelector('.cartwrapper').innerHTML = cartArr;
+	document.querySelector('#cartTotal').innerHTML = `₱ ${total.toLocaleString('en-US')}`;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//REDUCE FORMAT CHUII
+/*		let total = result.reduce((a, b)=>{
+
+			return a + b.price;
+		},0)
+
+
+			
+
+		*/
+/*		let content2 = document.querySelector('#content2');
 		let checkoutBtn = document.querySelector('#checkoutBtn');
 
-
-
-		if(result.itemsArr.length == 0 || result ==null){
+		if(result.length == 0 || result ==null){
 
 			
 			content2.innerHTML="<h2>No items in cart</h2>"
@@ -31,43 +87,24 @@ getCartItemsCount();
 		}
 
 		checkoutBtn.innerHTML =`&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-warning" onclick="checkout()">Checkout</button>`
-
-		let idArr = result.itemsArr.map(e=>{
-
-			
-			return `<span class="cartItself" id="${e}" onclick="">${e}</span><br><br>`
-
-		}).join(" ")
-
-		cartwrapper.innerHTML = idArr;
-
-		let x = document.querySelectorAll('.cartItself');
 		
-		
-		x.forEach(i=>{
 
-			let ii = document.getElementById(`${i.id}`);
+		let cartArr = result.map(e=>{
+
+			return`<div class="card"><div class="card-body"><h5 class ="card-title">${e.name}</h5><br>
+			<p class="card-text">${e.description}</p>
+			Price: ₱ ${e.price.toLocaleString('en-US')}<br>
+			<button type="button" class="btn btn-danger btn-sm"onclick="removeFromCart('${e._id}')">Remove from cart</button>
+			</div>
+			</div>
+			`
+
+		}).join(" ");
 
 
-			fetch(`${rootUrl}api/products/${i.id}`,{})
-				.then(result=>result.json())
-				.then(result=>{
-
-					ii.innerHTML = `
-
-					<div class="card">
-					<div class="card-body">
-					<h5 class ="card-title">${result.name}</h5><br>
-					<p class="card-text">${result.description}</p>
-					Price: ₱ ${result.price.toLocaleString('en-US')}<br>
-					<button type="button" class="btn btn-danger btn-sm"onclick="removeFromCart('${result._id}')">Remove from cart</button>
-					</div>
-					</div>
-
-					`
-				})
-
-		})
+		document.querySelector('.cartwrapper').innerHTML = cartArr;
+		document.querySelector('#cartTotal').innerHTML = total;
+*/
 
 	})
 
@@ -106,7 +143,6 @@ getCartItemsCount();
 
 	function checkout(){
 
-		//alert('clicked');
 
 		fetch(`${rootUrl}api/users/getCartItems`,{
 
@@ -135,30 +171,43 @@ getCartItemsCount();
 				})
 
 			})
-			.then(result=> result.text())
+			.then(result=> result.json())
 			.then(result =>{
 
-				alert('Orders placed succesfully');
-				fetch(`${rootUrl}api/users/clearCart`,{
+				if(Object.keys(result).length === 0){
 
-					method: "PUT",
-					headers:{
+					alert('Cannot checkout. Something went wrong');
 
-						"Authorization":`Bearer ${token}`
-					}
-				}).then(result => result.json())
-				.then(result=>{
+				}else{
 
-					if(result.cartCleared === true){
+					alert('Orders placed successfully');
 
-						window.location.reload();
+					fetch(`${rootUrl}api/users/clearCart`,{
 
-					}
-				})
+						method: "PUT",
+						headers:{
+
+							"Authorization":`Bearer ${token}`
+						}
+					}).then(result => result.json())
+					.then(result=>{
+
+						if(result.cartCleared === true){
+
+							window.location.reload();
+							return;
+
+						}else{
+
+							alert('Cannot clear cart. Something went wrong');
+						}
+					})
+
+				}
+
 
 			}).catch(error =>{
-
-				console.log('MAY ERROR');
+	
 				console.log(error);
 			})
 
