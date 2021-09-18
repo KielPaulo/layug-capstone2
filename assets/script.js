@@ -1,6 +1,6 @@
 //Global Variables----------------------------
-const rootUrl = "http://localhost:3000/"; //https://warm-everglades-42196.herokuapp.com/ 
-/*const rootUrl = "https://warm-everglades-42196.herokuapp.com/";*/
+//const rootUrl = "http://localhost:3000/"; //https://warm-everglades-42196.herokuapp.com/ 
+const rootUrl = "https://warm-everglades-42196.herokuapp.com/";
 const token = localStorage.getItem('token');
 const isAdmin = localStorage.getItem('isAdmin');
 const params = new URLSearchParams(window.location.search);
